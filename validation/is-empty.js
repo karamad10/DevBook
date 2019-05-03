@@ -1,3 +1,4 @@
+//checks the given value and returns false if its undefined/null or an empty string/object
 const isEmpty = value =>
   value === undefined ||
   value === null ||
