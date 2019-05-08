@@ -1,10 +1,15 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
 
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({
+  profile: { profile, loading },
+  createProfile,
+  history,
+  getCurrentProfile
+}) => {
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -40,19 +45,36 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  useEffect(() => {
+    getCurrentProfile();
 
+    setFormData({
+      company: loading || !profile.company ? "" : profile.company,
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      status: loading || !profile.status ? "" : profile.status,
+      skills: loading || !profile.skills ? "" : profile.skills.join(","),
+      githubusername:
+        loading || !profile.githubusername ? "" : profile.githubusername,
+      bio: loading || !profile.bio ? "" : profile.bio,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, getCurrentProfile]);
   return (
     <Fragment>
       <h1 className="display-4 text-center" style={{ color: "teal" }}>
-        Create Your Profile
+        Edit Your Profile
       </h1>
-      <p className="lead text-center">
-        Let's get some information to make your profile stand out
-      </p>
+      <br />
       <small className="d-block pb-3">* = required field</small>
       <form onSubmit={e => onSubmit(e)}>
         <div className="form-group">
@@ -163,7 +185,7 @@ const CreateProfile = ({ createProfile, history }) => {
           >
             Add Social Network Links
           </button>
-          <span className="text-muted">Optional</span>
+          <span className="text-muted"> Optional</span>
         </div>
 
         {displaySocialInputs && (
@@ -250,7 +272,11 @@ const CreateProfile = ({ createProfile, history }) => {
           </Fragment>
         )}
 
-        <input type="submit" className="btn btn-info btn-block mt-4" />
+        <input
+          type="submit"
+          className="btn btn-primary my-1"
+          style={{ background: "teal", border: "none" }}
+        />
         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
         </Link>
@@ -259,11 +285,16 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
 export default connect(
-  null,
-  { createProfile }
-)(withRouter(CreateProfile));
+  mapStateToProps,
+  { createProfile, getCurrentProfile }
+)(withRouter(EditProfile));

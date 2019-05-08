@@ -2,6 +2,8 @@ import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
+import DashboardActions from "./DashboardActions";
+import Experience from "./Experience";
 import { Link } from "react-router-dom";
 import { getCurrentProfile } from "../../actions/profile";
 
@@ -17,7 +19,7 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className="large " style={{ color: "teal" }}>
+      <h1 className="large display-4" style={{ color: "teal" }}>
         {" "}
         Dashboard{" "}
       </h1>
@@ -26,7 +28,11 @@ const Dashboard = ({
         <i className="fas fa-user" /> Welcome {user && user.name}{" "}
       </p>
       {profile !== null ? (
-        <Fragment> has </Fragment>
+        <Fragment>
+          {" "}
+          <DashboardActions />
+          <Experience experience={profile.experince} />
+        </Fragment>
       ) : (
         <Fragment>
           <p> You Don't have a profile, please add some information </p>
