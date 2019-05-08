@@ -1,48 +1,72 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-class Navbar extends Component {
-  render() {
-    return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            DevConnector
+import { connect } from "react-redux";
+import { logout } from "../../actions/auth";
+import PropTypes from "prop-types";
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+  const authLinks = (
+    <>
+      <Link to="/posts">Posts</Link>
+      <Link to="/dashboard">
+        <i className="fas fa-user" />{" "}
+        <span className="hide-sm"> Dashboard </span>
+      </Link>
+      <a onClick={logout} href="#!">
+        <i className="fas fa-sign-out-alt" />{" "}
+        <span className="hide-sm">Logout</span>
+      </a>
+    </>
+  );
+
+  const guestLinks = (
+    <div className="collapse navbar-collapse" id="mobile-nav">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/profiles">
+            Developers
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
+        </li>
+      </ul>
 
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profiles">
-                  Developers
-                </Link>
-              </li>
-            </ul>
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  Sign Up
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    );
-  }
-}
+  return (
+    <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+      <div className="container">
+        <Link className="navbar-brand" to="/">
+          <i className="fas fa-code" /> DevConnector
+        </Link>
+        {!loading && (
+          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        )}
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar;
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Navbar);
