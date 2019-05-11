@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { deleteExperience, deleteEducation } from "../../actions/profile";
+import { deleteEducation } from "../../actions/profile";
 
 const Education = ({ education, deleteEducation }) => {
   const educations = education.map(edu => (
@@ -30,7 +30,7 @@ const Education = ({ education, deleteEducation }) => {
 
   return (
     <Fragment>
-      <h2 className="my-2">School Credentials</h2>
+      <h2 className="my-2">Education Credentials</h2>
       <table className="table">
         <thead>
           <tr>
@@ -48,10 +48,10 @@ const Education = ({ education, deleteEducation }) => {
 
 Education.propTypes = {
   education: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired
+  deleteEducation: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { deleteExperience }
+  { deleteEducation }
 )(Education);

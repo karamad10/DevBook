@@ -31,9 +31,7 @@ const Login = ({ login, isAuthenticated }) => {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign In</h1>
-              <p className="lead text-center">
-                Sign into your DevConnector account
-              </p>
+              <p className="lead text-center">Sign into your DevBook account</p>
               <form onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                   <input
