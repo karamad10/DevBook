@@ -17,21 +17,18 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-  return loading && profile === null ? (
+  return loading || profile === null ? (
     <Spinner />
   ) : (
     <Fragment>
       <h1 className="large display-4" style={{ color: "teal" }}>
-        {" "}
-        Dashboard{" "}
+        Dashboard
       </h1>
       <p className="lead">
-        {" "}
-        <i className="fas fa-user" /> Welcome {user && user.name}{" "}
+        <i className="fas fa-user" /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
         <Fragment>
-          {" "}
           <DashboardActions />
           <Experience experience={profile.experince} />
           <Education education={profile.education} />

@@ -1,6 +1,6 @@
 {
   "mongoURI": "mongodb+srv://Kekoo:kekoo@myfirstcluster-xo74s.mongodb.net/test?retryWrites=true",
   "jwtSecret": "secret",
-  "githubClientId": "",
-  "githubSecret": ""
+  "githubClientId": "8e05fe06c7d8496be25b",
+  "githubSecret": "aff44b465cfd18514b027e90afefc8d56ffe1ecf"
 }
