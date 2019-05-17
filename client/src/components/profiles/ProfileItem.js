@@ -12,37 +12,38 @@ const ProfileItem = ({
   }
 }) => {
   return (
-    <div
-      className="profile bg-light"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
-      }}
-    >
-      <img
-        src={avatar}
-        alt=""
-        className="round-img"
-        style={{ width: "14vw", height: "16vh", borderRadius: "40%" }}
-      />
-      <div>
+    <div className="card card-body bg-light mb-3">
+      <div className="col-lg-12 col-md-4 col-8" style={{ textAlign: "center" }}>
+        <img
+          className="rounded-circle d-none d-md-block"
+          src={avatar}
+          alt=""
+          style={{ width: "140px", margin: "auto" }}
+        />
+        <br />
         <h2 style={{ color: "teal" }}>{name}</h2>
         <p>
           {status} {company && <span> at {company}</span>}
         </p>
-        <p className="my-1">{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${_id}`} className="btn btn-dark">
-          View Profile
-        </Link>
+        <p>{location && <span>{location}</span>}</p>
       </div>
-      <ul>
-        {skills.slice(0, 4).map((skill, index) => (
-          <li key={index} className="text-secondary">
-            <i className="fas fa-check" /> {skill}
-          </li>
-        ))}
-      </ul>
+      <Link
+        to={`/profile/${_id}`}
+        className="btn btn-dark"
+        style={{ width: "200px", margin: "auto" }}
+      >
+        View Profile
+      </Link>
+      <br />
+      <div className="col-lg-12 col-md-4 col-8">
+        <ul className="list-group">
+          {skills.slice(0, 4).map((skill, index) => (
+            <li key={index} className="list-group-item">
+              <i className="fas fa-check pr-1" /> {skill}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

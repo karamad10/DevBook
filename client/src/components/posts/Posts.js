@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { getPosts } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
-import { AUTH_ERROR } from "../../actions/types";
+import PostForm from "./PostForm";
+//import { AUTH_ERROR } from "../../actions/types";
 
 const Posts = ({ getPosts, post: { posts, loading }, auth }) => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const Posts = ({ getPosts, post: { posts, loading }, auth }) => {
       <p className="lead">
         <i className="fas fa-user" /> Welcome {auth.user.name}
       </p>
+      <PostForm />
       <div className="posts">
         {posts.map(post => (
           <PostItem key={post._id} post={post} />
