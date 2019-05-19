@@ -66,7 +66,7 @@ const PostItem = ({
             >
               Comments{" "}
               {comments.length > 0 && (
-                <span className="comment-count">{comments.length}</span>
+                <span className="comment-count">: {comments.length}</span>
               )}
             </Link>
             {!auth.loading && user === auth.user._id && (
