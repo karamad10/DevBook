@@ -21,6 +21,7 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
+      {console.log("loading state ", loading)}
       <h1 className="large display-4" style={{ color: "teal" }}>
         Dashboard
       </h1>
@@ -30,7 +31,7 @@ const Dashboard = ({
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
-          <Experience experience={profile.experience} />
+          <Experience experience={profile.experince} />
           <Education education={profile.education} />
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>

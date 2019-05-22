@@ -2,6 +2,7 @@ import axios from "axios";
 import { setAlert } from "./alert";
 
 import {
+  SET_LOADING,
   GET_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE,
@@ -13,6 +14,8 @@ import {
 
 // Get current user profile
 export const getCurrentProfile = () => async dispatch => {
+  dispatch({ type: SET_LOADING });
+
   try {
     const res = await axios.get("/api/profile/me");
 
